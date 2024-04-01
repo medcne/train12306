@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.leoliu.train.member</groupId>
+    <groupId>com.leoliu.train</groupId>
     <artifactId>train-member</artifactId>
 
     <properties>
@@ -17,6 +17,13 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.leoliu.train</groupId>
+            <artifactId>train-api-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
