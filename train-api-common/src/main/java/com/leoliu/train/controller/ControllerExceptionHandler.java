@@ -3,6 +3,7 @@ package com.leoliu.train.controller;
 
 import com.leoliu.train.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,15 +32,22 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = BusinessException.class)
     @ResponseBody
     public CommonResp exceptionHandler(BusinessException e){
-        // LOG.info("seata全局事务ID: {}", RootContext.getXID());
-        // // 如果是在一次全局事务里出异常了，就不要包装返回值，将异常抛给调用方，让调用方回滚事务
-        // if (StrUtil.isNotBlank(RootContext.getXID())) {
-        //     throw e;
-        // }
+
         CommonResp commonResp = new CommonResp();
-        log.error("业务异常：", e);
+        log.error("业务异常：{}", e.getMessage());
         commonResp.setSuccess(false);
         commonResp.setMessage(e.getExceptionEnum().getDesc());
+        return commonResp;
+    }
+
+    @ExceptionHandler(value = BindException.class)
+    @ResponseBody
+    public CommonResp exceptionHandler(BindException e){
+
+        CommonResp commonResp = new CommonResp();
+        log.error("校验异常：{}", e.getMessage());
+        commonResp.setSuccess(false);
+        commonResp.setMessage(e.getAllErrors().get(0).getDefaultMessage());
         return commonResp;
     }
 }
