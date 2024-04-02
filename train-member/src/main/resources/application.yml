@@ -3,3 +3,14 @@ server:
 
 logging:
   config: classpath:logback-spring.xml
+
+
+spring:
+  application:
+    name: train-member
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: train

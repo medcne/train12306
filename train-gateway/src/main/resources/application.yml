@@ -1,0 +1,16 @@
+server:
+  port: 8000
+logging:
+  config: classpath:logback-spring.xml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: member_route
+          uri: http://localhost:8001
+          predicates:
+            - Path=/member/**
+
+
+
+

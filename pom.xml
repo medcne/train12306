@@ -17,15 +17,24 @@
     <modules>
         <module>train-member</module>
         <module>train-api-common</module>
+        <module>train-gateway</module>
     </modules>
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <lombok.version>1.18.12</lombok.version>
+        <spring.cloud.alibaba.version>2022.0.0.0</spring.cloud.alibaba.version>
+        <alibaba-nacos-discovery.version>2022.0.0.0</alibaba-nacos-discovery.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- 注册中心 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${alibaba-nacos-discovery.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -48,6 +57,17 @@
                 <artifactId>hutool-all</artifactId>
                 <version>5.8.10</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+
         </dependencies>
 
     </dependencyManagement>
