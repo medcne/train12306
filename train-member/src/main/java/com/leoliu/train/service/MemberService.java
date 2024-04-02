@@ -29,7 +29,12 @@ public class MemberService {
         MemberExample memberExample = new MemberExample();
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> members = memberMapper.selectByExample(memberExample);
-        return members.get(0);
+        if (CollUtil.isNotEmpty(members)){
+            return members.get(0);
+        }else {
+            return null;
+        }
+
     }
     public int count(){
         return (int) memberMapper.countByExample(null);
