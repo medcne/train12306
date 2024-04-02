@@ -3,6 +3,8 @@ package com.leoliu.train.service;
 import cn.hutool.core.collection.CollUtil;
 import com.leoliu.train.domain.Member;
 import com.leoliu.train.domain.MemberExample;
+import com.leoliu.train.exception.BusinessException;
+import com.leoliu.train.exception.BusinessExceptionEnum;
 import com.leoliu.train.mapper.MemberMapper;
 import com.leoliu.train.req.MemberRegisterReq;
 import jakarta.annotation.Resource;
@@ -23,7 +25,7 @@ public class MemberService {
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> members = memberMapper.selectByExample(memberExample);
         if(CollUtil.isNotEmpty(members)){
-            throw new RuntimeException("手机号已经注册！");
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
         Member member = new Member();
         member.setId(System.currentTimeMillis());
