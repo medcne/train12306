@@ -1,18 +1,6 @@
 <template>
   <a-layout>
-    <a-layout-header id="components-layout-demo-top-side" class="header">
-      <div class="logo" />
-      <a-menu
-          v-model:selectedKeys="selectedKeys1"
-          theme="dark"
-          mode="horizontal"
-          :style="{ lineHeight: '64px' }"
-      >
-        <a-menu-item key="1">nav 1</a-menu-item>
-        <a-menu-item key="2">nav 2</a-menu-item>
-        <a-menu-item key="3">nav 3</a-menu-item>
-      </a-menu>
-    </a-layout-header>
+  <TrainHeader></TrainHeader>
     <a-layout-content style="padding: 0 50px">
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>Home</a-breadcrumb-item>
@@ -78,8 +66,10 @@
 <script>
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue';
+import TrainHeader from "@/components/TrainHeader.vue";
 export default defineComponent({
   components: {
+    TrainHeader,
     UserOutlined,
     LaptopOutlined,
     NotificationOutlined,
