@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.jwt.JWTUtil;
 import com.leoliu.train.domain.Member;
 import com.leoliu.train.domain.MemberExample;
 import com.leoliu.train.exception.BusinessException;
@@ -19,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @Service
 public class MemberService {
@@ -80,7 +83,12 @@ public class MemberService {
         if(!"8888".equals(code)){
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_CODE_ERROR);
         }
-        return BeanUtil.copyProperties(memberDB,MemberLoginResp.class);
+        MemberLoginResp memberLoginResp = BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
+        Map<String, Object> jwtMap = BeanUtil.beanToMap(memberLoginResp);
+        String key = "leoliu12306";
+        String token = JWTUtil.createToken(jwtMap, key.getBytes());
+        memberLoginResp.setToken(token);
+        return memberLoginResp;
     }
 
 
