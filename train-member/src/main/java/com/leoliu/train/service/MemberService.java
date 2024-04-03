@@ -14,6 +14,7 @@ import com.leoliu.train.req.MemberLoginReq;
 import com.leoliu.train.req.MemberRegisterReq;
 import com.leoliu.train.req.MemberSendCodeReq;
 import com.leoliu.train.resp.MemberLoginResp;
+import com.leoliu.train.util.JwtUtil;
 import com.leoliu.train.util.SnowUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -84,9 +85,7 @@ public class MemberService {
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_CODE_ERROR);
         }
         MemberLoginResp memberLoginResp = BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
-        Map<String, Object> jwtMap = BeanUtil.beanToMap(memberLoginResp);
-        String key = "leoliu12306";
-        String token = JWTUtil.createToken(jwtMap, key.getBytes());
+        String token = JwtUtil.createToken(memberLoginResp.getId(), memberLoginResp.getMobile());
         memberLoginResp.setToken(token);
         return memberLoginResp;
     }
