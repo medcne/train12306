@@ -2,6 +2,7 @@ package com.leoliu.train.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
+import com.leoliu.train.context.LoginMemberContext;
 import com.leoliu.train.domain.Passenger;
 import com.leoliu.train.mapper.PassengerMapper;
 import com.leoliu.train.req.PassengerSaveReq;
@@ -18,6 +19,7 @@ public class PassengerService {
         DateTime now = DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
         passenger.setId(SnowUtil.getSnowflakeNextId());
+        passenger.setMemberId(LoginMemberContext.getMember().getId());
         passenger.setCreateTime(now);
         passenger.setUpdateTime(now);
         passengerMapper.insert(passenger);
