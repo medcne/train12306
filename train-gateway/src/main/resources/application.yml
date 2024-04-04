@@ -10,6 +10,14 @@ spring:
           uri: http://localhost:8001
           predicates:
             - Path=/member/**
+        - id: passenger_route
+          uri: http://localhost:8001
+          predicates:
+            - Path=/passenger/**
+
+
+
+
       globalcors:
         cors-configurations:
           '[/**]':
