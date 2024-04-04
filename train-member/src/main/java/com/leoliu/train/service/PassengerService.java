@@ -3,6 +3,7 @@ package com.leoliu.train.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
 import com.leoliu.train.context.LoginMemberContext;
 import com.leoliu.train.domain.Passenger;
 import com.leoliu.train.domain.PassengerExample;
@@ -38,6 +39,7 @@ public class PassengerService {
         if(ObjectUtil.isNotNull(req.getMemberId())){
             criteria.andMemberIdEqualTo(req.getMemberId());
         }
+        PageHelper.startPage(1,4);
         List<Passenger> list = passengerMapper.selectByExample(passengerExample);
         return BeanUtil.copyToList(list,PassengerResp.class);
     }
