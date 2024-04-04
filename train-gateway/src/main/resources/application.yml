@@ -7,11 +7,11 @@ spring:
     gateway:
       routes:
         - id: member_route
-          uri: http://localhost:8001
+          uri: lb://train-member
           predicates:
             - Path=/member/**
         - id: passenger_route
-          uri: http://localhost:8001
+          uri: lb://train-member
           predicates:
             - Path=/passenger/**
 
