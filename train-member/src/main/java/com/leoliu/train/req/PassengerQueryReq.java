@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PassengerQueryReq {
+public class PassengerQueryReq extends PageReq{
     private Long memberId;
 }

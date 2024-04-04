@@ -1,8 +1,11 @@
 package com.leoliu.train.resp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
-public class PassengerResp {
+public class PassengerQueryResp {
     private Long id;
 
     private Long memberId;
@@ -13,8 +16,9 @@ public class PassengerResp {
 
     private String type;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     public Long getId() {

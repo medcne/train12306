@@ -5,7 +5,8 @@ import com.leoliu.train.context.LoginMemberContext;
 import com.leoliu.train.req.PassengerQueryReq;
 import com.leoliu.train.req.PassengerSaveReq;
 import com.leoliu.train.resp.CommonResp;
-import com.leoliu.train.resp.PassengerResp;
+import com.leoliu.train.resp.PageResp;
+import com.leoliu.train.resp.PassengerQueryResp;
 import com.leoliu.train.service.PassengerService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -26,9 +27,9 @@ public class PassengerController {
     }
 
     @GetMapping("/query-list")
-    public CommonResp<List<PassengerResp>> queryList(@Valid PassengerQueryReq req){
+    public CommonResp<PageResp<PassengerQueryResp>> queryList(@Valid PassengerQueryReq req){
         req.setMemberId(LoginMemberContext.getId());
-        List<PassengerResp> list = passengerService.queryList(req);
-        return new CommonResp<>(list);
+        PageResp<PassengerQueryResp> pageResp = passengerService.queryList(req);
+        return new CommonResp<>(pageResp);
     }
 }
