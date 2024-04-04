@@ -1,13 +1,16 @@
 package com.leoliu.train.resp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class PassengerQueryResp {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
-
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long memberId;
 
     private String name;
