@@ -1,15 +1,17 @@
 package com.leoliu.train.controller;
 
 
+import com.leoliu.train.context.LoginMemberContext;
+import com.leoliu.train.req.PassengerQueryReq;
 import com.leoliu.train.req.PassengerSaveReq;
 import com.leoliu.train.resp.CommonResp;
+import com.leoliu.train.resp.PassengerResp;
 import com.leoliu.train.service.PassengerService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/passenger")
@@ -23,6 +25,10 @@ public class PassengerController {
         return new CommonResp<>();
     }
 
-
-
+    @GetMapping("/query-list")
+    public CommonResp<List<PassengerResp>> queryList(@Valid PassengerQueryReq req){
+        req.setMemberId(LoginMemberContext.getId());
+        List<PassengerResp> list = passengerService.queryList(req);
+        return new CommonResp<>(list);
+    }
 }

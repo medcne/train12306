@@ -8,8 +8,19 @@ const routes = [
     name: 'main',
     component: () => import('../views/TrainMain.vue'),
     meta: {
-      loginRequire:true
-    }
+      loginRequire:true,
+    },
+    children: [{
+      path: '/welcome',
+      component: () => import('../views/main/TrainWelcome.vue'),
+    },{
+      path: '/passenger',
+      component: ()=> import('../views/main/TrainPassenger.vue'),
+    }]
+  },
+  {
+    path: '',
+    redirect: '/welcome'
   },
   {
     path: '/login',
