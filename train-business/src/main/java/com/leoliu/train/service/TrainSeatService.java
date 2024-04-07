@@ -41,22 +41,26 @@ public class TrainSeatService {
 
     public PageResp<TrainSeatQueryResp> queryList(TrainSeatQueryReq req) {
         TrainSeatExample trainSeatExample = new TrainSeatExample();
+        trainSeatExample.setOrderByClause("train_code asc, carriage_index asc, carriage_seat_index asc");
         TrainSeatExample.Criteria criteria = trainSeatExample.createCriteria();
+        if (ObjectUtil.isNotEmpty(req.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
-
         PageHelper.startPage(req.getPage(), req.getSize());
-        List<TrainSeat> list = trainSeatMapper.selectByExample(trainSeatExample);
+        List<TrainSeat> trainSeatList = trainSeatMapper.selectByExample(trainSeatExample);
 
-        PageInfo<TrainSeat> trainSeatPageInfo = new PageInfo<>(list);
-        log.info("总行数：{}", trainSeatPageInfo.getTotal());
-        log.info("总页数：{}", trainSeatPageInfo.getPages());
+        PageInfo<TrainSeat> pageInfo = new PageInfo<>(trainSeatList);
+        log.info("总行数：{}", pageInfo.getTotal());
+        log.info("总页数：{}", pageInfo.getPages());
 
-        List<TrainSeatQueryResp> reqlist = BeanUtil.copyToList(list, TrainSeatQueryResp.class);
+        List<TrainSeatQueryResp> list = BeanUtil.copyToList(trainSeatList, TrainSeatQueryResp.class);
+
         PageResp<TrainSeatQueryResp> pageResp = new PageResp<>();
-        pageResp.setTotal(trainSeatPageInfo.getTotal());
-        pageResp.setList(reqlist);
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
         return pageResp;
     }
 

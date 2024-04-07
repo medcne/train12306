@@ -41,22 +41,26 @@ public class TrainStationService {
 
     public PageResp<TrainStationQueryResp> queryList(TrainStationQueryReq req) {
         TrainStationExample trainStationExample = new TrainStationExample();
+        trainStationExample.setOrderByClause("train_code asc, `index` asc");
         TrainStationExample.Criteria criteria = trainStationExample.createCriteria();
+        if (ObjectUtil.isNotEmpty(req.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
-
         PageHelper.startPage(req.getPage(), req.getSize());
-        List<TrainStation> list = trainStationMapper.selectByExample(trainStationExample);
+        List<TrainStation> trainStationList = trainStationMapper.selectByExample(trainStationExample);
 
-        PageInfo<TrainStation> trainStationPageInfo = new PageInfo<>(list);
-        log.info("总行数：{}", trainStationPageInfo.getTotal());
-        log.info("总页数：{}", trainStationPageInfo.getPages());
+        PageInfo<TrainStation> pageInfo = new PageInfo<>(trainStationList);
+        log.info("总行数：{}", pageInfo.getTotal());
+        log.info("总页数：{}", pageInfo.getPages());
 
-        List<TrainStationQueryResp> reqlist = BeanUtil.copyToList(list, TrainStationQueryResp.class);
+        List<TrainStationQueryResp> list = BeanUtil.copyToList(trainStationList, TrainStationQueryResp.class);
+
         PageResp<TrainStationQueryResp> pageResp = new PageResp<>();
-        pageResp.setTotal(trainStationPageInfo.getTotal());
-        pageResp.setList(reqlist);
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
         return pageResp;
     }
 
