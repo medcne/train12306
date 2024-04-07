@@ -1,4 +1,4 @@
-package com.leoliu.train.gen;
+package com.leoliu.train.enums;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
