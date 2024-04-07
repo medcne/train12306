@@ -34,6 +34,7 @@ public class DbUtil {
 
     /**
      * 获得表注释
+     *
      * @param tableName
      * @return
      * @throws Exception
@@ -44,7 +45,7 @@ public class DbUtil {
         ResultSet rs = stmt.executeQuery("select table_comment from information_schema.tables Where table_name = '" + tableName + "'");
         String tableNameCH = "";
         if (rs != null) {
-            while(rs.next()) {
+            while (rs.next()) {
                 tableNameCH = rs.getString("table_comment");
                 break;
             }
@@ -58,6 +59,7 @@ public class DbUtil {
 
     /**
      * 获得所有列信息
+     *
      * @param tableName
      * @return
      * @throws Exception
@@ -68,7 +70,7 @@ public class DbUtil {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("show full columns from `" + tableName + "`");
         if (rs != null) {
-            while(rs.next()) {
+            while (rs.next()) {
                 String columnName = rs.getString("Field");
                 String type = rs.getString("Type");
                 String comment = rs.getString("Comment");
@@ -118,12 +120,12 @@ public class DbUtil {
     /**
      * 下划线转小驼峰：member_id 转成 memberId
      */
-    public static String lineToHump(String str){
+    public static String lineToHump(String str) {
         Pattern linePattern = Pattern.compile("_(\\w)");
         str = str.toLowerCase();
         Matcher matcher = linePattern.matcher(str);
         StringBuffer sb = new StringBuffer();
-        while(matcher.find()){
+        while (matcher.find()) {
             matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
         }
         matcher.appendTail(sb);
@@ -133,7 +135,7 @@ public class DbUtil {
     /**
      * 下划线转大驼峰：member_id 转成 MemberId
      */
-    public static String lineToBigHump(String str){
+    public static String lineToBigHump(String str) {
         String s = lineToHump(str);
         return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
@@ -147,6 +149,10 @@ public class DbUtil {
                 || sqlType.toUpperCase().contains("text".toUpperCase())) {
             return "String";
         } else if (sqlType.toUpperCase().contains("datetime".toUpperCase())) {
+            return "Date";
+        } else if (sqlType.toUpperCase().contains("time".toUpperCase())) {
+            return "Date";
+        } else if (sqlType.toUpperCase().contains("date".toUpperCase())) {
             return "Date";
         } else if (sqlType.toUpperCase().contains("bigint".toUpperCase())) {
             return "Long";

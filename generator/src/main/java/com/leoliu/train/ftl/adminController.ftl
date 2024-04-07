@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/${module}/${do_main}")
+@RequestMapping("/${module}/admin/${do_main}")
 public class ${Domain}AdminController {
     @Resource
     private ${Domain}Service ${domain}Service;

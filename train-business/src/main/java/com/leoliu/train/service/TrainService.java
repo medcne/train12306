@@ -1,0 +1,67 @@
+package com.leoliu.train.service;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.leoliu.train.domain.Train;
+import com.leoliu.train.domain.TrainExample;
+import com.leoliu.train.mapper.TrainMapper;
+import com.leoliu.train.req.TrainQueryReq;
+import com.leoliu.train.req.TrainSaveReq;
+import com.leoliu.train.resp.PageResp;
+import com.leoliu.train.resp.TrainQueryResp;
+import com.leoliu.train.util.SnowUtil;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Slf4j
+@Service
+public class TrainService {
+    @Resource
+    private TrainMapper trainMapper;
+
+    public void save(TrainSaveReq req) {
+        DateTime now = DateTime.now();
+        Train train = BeanUtil.copyProperties(req, Train.class);
+        if (ObjectUtil.isNull(train.getId())) {
+            train.setId(SnowUtil.getSnowflakeNextId());
+            train.setCreateTime(now);
+            train.setUpdateTime(now);
+            trainMapper.insert(train);
+        } else {
+            train.setUpdateTime(now);
+            trainMapper.updateByPrimaryKey(train);
+        }
+    }
+
+    public PageResp<TrainQueryResp> queryList(TrainQueryReq req) {
+        TrainExample trainExample = new TrainExample();
+        TrainExample.Criteria criteria = trainExample.createCriteria();
+
+        log.info("查询页码：{}", req.getPage());
+        log.info("每页条数：{}", req.getSize());
+
+        PageHelper.startPage(req.getPage(), req.getSize());
+        List<Train> list = trainMapper.selectByExample(trainExample);
+
+        PageInfo<Train> trainPageInfo = new PageInfo<>(list);
+        log.info("总行数：{}", trainPageInfo.getTotal());
+        log.info("总页数：{}", trainPageInfo.getPages());
+
+        List<TrainQueryResp> reqlist = BeanUtil.copyToList(list, TrainQueryResp.class);
+        PageResp<TrainQueryResp> pageResp = new PageResp<>();
+        pageResp.setTotal(trainPageInfo.getTotal());
+        pageResp.setList(reqlist);
+        return pageResp;
+    }
+
+
+    public void delete(Long id) {
+        trainMapper.deleteByPrimaryKey(id);
+    }
+}
