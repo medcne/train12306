@@ -1,4 +1,4 @@
-package com.leoliu.train.controller;
+package com.leoliu.train.controller.admin;
 
 
 import com.leoliu.train.context.LoginMemberContext;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/${do_main}")
-public class ${Domain}Controller {
+@RequestMapping("/admin/${module}/${do_main}")
+public class ${Domain}AdminController {
     @Resource
     private ${Domain}Service ${domain}Service;
 
@@ -28,7 +28,6 @@ public class ${Domain}Controller {
 
     @GetMapping("/query-list")
     public CommonResp<PageResp<${Domain}QueryResp>> queryList(@Valid ${Domain}QueryReq req){
-        req.setMemberId(LoginMemberContext.getId());
         PageResp<${Domain}QueryResp> pageResp = ${domain}Service.queryList(req);
         return new CommonResp<>(pageResp);
     }

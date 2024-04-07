@@ -14,9 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class ServerGenerator {
+public class BusinessServerGenerator {
     static boolean readOnly = false;
-    static String vuePath = "web/src/views/main/";
+    static String vuePath = "admin/src/views/main/";
     static String serverPath = "[module]/src/main/java/com/leoliu/train/";
     static String pomPath = "generator\\pom.xml";
 
@@ -80,7 +80,7 @@ public class ServerGenerator {
         System.out.println("组装参数：" + param);
 
         gen(Domain, param, "service", "service");
-        gen(Domain, param, "controller", "controller");
+        gen(Domain, param, "controller/admin", "adminController");
         gen(Domain, param, "req", "saveReq");
         gen(Domain, param, "req", "queryReq");
         gen(Domain, param, "resp", "queryResp");
