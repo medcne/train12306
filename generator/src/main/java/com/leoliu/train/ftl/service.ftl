@@ -5,7 +5,6 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.leoliu.train.context.LoginMemberContext;
 import com.leoliu.train.domain.${Domain};
 import com.leoliu.train.domain.${Domain}Example;
 import com.leoliu.train.mapper.${Domain}Mapper;
@@ -31,7 +30,6 @@ public class ${Domain}Service {
         ${Domain} ${domain} = BeanUtil.copyProperties(req, ${Domain}.class);
         if (ObjectUtil.isNull(${domain}.getId())) {
             ${domain}.setId(SnowUtil.getSnowflakeNextId());
-            ${domain}.setMemberId(LoginMemberContext.getMember().getId());
             ${domain}.setCreateTime(now);
             ${domain}.setUpdateTime(now);
             ${domain}Mapper.insert(${domain});
@@ -44,9 +42,7 @@ public class ${Domain}Service {
     public PageResp<${Domain}QueryResp> queryList(${Domain}QueryReq req) {
         ${Domain}Example ${domain}Example = new ${Domain}Example();
         ${Domain}Example.Criteria criteria = ${domain}Example.createCriteria();
-        if (ObjectUtil.isNotNull(req.getMemberId())) {
-            criteria.andMemberIdEqualTo(req.getMemberId());
-        }
+
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
 
