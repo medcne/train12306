@@ -18,6 +18,10 @@ spring:
           uri: lb://train-business
           predicates:
             - Path=/business/**
+        - id: batch_route
+          uri: lb://train-batch
+          predicates:
+            - Path=/batch/**
 
 
 

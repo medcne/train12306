@@ -41,7 +41,7 @@
            ok-text="确认" cancel-text="取消">
     <a-form :model="train" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
       <a-form-item label="车次编号">
-        <a-input v-model:value="train.code" />
+        <a-input v-model:value="train.code" :disabled="!!train.id"/>
       </a-form-item>
       <a-form-item label="车次类型">
         <a-select v-model:value="train.type">
@@ -77,7 +77,7 @@ import { defineComponent, ref, onMounted, watch } from 'vue';
 import {notification} from "ant-design-vue";
 import axios from "axios";
 import {pinyin} from "pinyin-pro";
-import StationSelectView from "@/components/station-select";
+import StationSelectView from "@/components/station-select.vue";
 
 export default defineComponent({
   name: "train-view",
@@ -153,16 +153,16 @@ export default defineComponent({
       }
     ];
 
-    watch(() => train.value.start, () => {
+    watch(() => train.value.start, ()=>{
       if (Tool.isNotEmpty(train.value.start)) {
-        train.value.startPinyin = pinyin(train.value.start, {toneType: 'none'}).replaceAll(" ", "");
+        train.value.startPinyin = pinyin(train.value.start, { toneType: 'none'}).replaceAll(" ", "");
       } else {
         train.value.startPinyin = "";
       }
     }, {immediate: true});
-    watch(() => train.value.end, () => {
+    watch(() => train.value.end, ()=>{
       if (Tool.isNotEmpty(train.value.end)) {
-        train.value.endPinyin = pinyin(train.value.end, {toneType: 'none'}).replaceAll(" ", "");
+        train.value.endPinyin = pinyin(train.value.end, { toneType: 'none'}).replaceAll(" ", "");
       } else {
         train.value.endPinyin = "";
       }
