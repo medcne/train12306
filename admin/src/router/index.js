@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [{
     path: '/',
@@ -33,7 +33,13 @@ const routes = [{
             path: 'job',
             component: () => import('../views/main/batch/job.vue')
         }]
-    }]
+    }, {
+        path: 'business/',
+        children: [{
+            path: 'daily-train',
+            component: () => import('../views/main/business/daily-train.vue'),
+        }]
+    },]
 }, {
     path: '',
     redirect: '/welcome'
