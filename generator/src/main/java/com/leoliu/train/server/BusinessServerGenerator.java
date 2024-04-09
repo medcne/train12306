@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class BusinessServerGenerator {
-    static boolean readOnly = false;
-    static String vuePath = "admin/src/views/main/";
+    static boolean readOnly = true;
+    static String vuePath = "admin/src/views/main/business/";
     static String serverPath = "[module]/src/main/java/com/leoliu/train/";
     static String pomPath = "generator\\pom.xml";
 

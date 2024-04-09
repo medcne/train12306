@@ -2,12 +2,11 @@ package com.leoliu.train.req;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class DailyTrainStationSaveReq {
+public class DailyTrainSeatSaveReq {
 
     /**
      * id
@@ -28,46 +27,40 @@ public class DailyTrainStationSaveReq {
     private String trainCode;
 
     /**
-     * 站序|第一站是0
+     * 箱序
      */
-    @NotNull(message = "【站序】不能为空")
-    private Integer index;
+    @NotNull(message = "【箱序】不能为空")
+    private Integer carriageIndex;
 
     /**
-     * 站名
+     * 排号|01, 02
      */
-    @NotBlank(message = "【站名】不能为空")
-    private String name;
+    @NotBlank(message = "【排号】不能为空")
+    private String row;
 
     /**
-     * 站名拼音
+     * 列号|枚举[SeatColEnum]
      */
-    @NotBlank(message = "【站名拼音】不能为空")
-    private String namePinyin;
+    @NotBlank(message = "【列号】不能为空")
+    private String col;
 
     /**
-     * 进站时间
+     * 座位类型|枚举[SeatTypeEnum]
      */
-    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
-    private Date inTime;
+    @NotBlank(message = "【座位类型】不能为空")
+    private String seatType;
 
     /**
-     * 出站时间
+     * 同车箱座序
      */
-    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
-    private Date outTime;
+    @NotNull(message = "【同车箱座序】不能为空")
+    private Integer carriageSeatIndex;
 
     /**
-     * 停站时长
+     * 售卖情况|将经过的车站用01拼接，0表示可卖，1表示已卖
      */
-    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
-    private Date stopTime;
-
-    /**
-     * 里程（公里）|从上一站到本站的距离
-     */
-    @NotNull(message = "【里程（公里）】不能为空")
-    private BigDecimal km;
+    @NotBlank(message = "【售卖情况】不能为空")
+    private String sell;
 
     /**
      * 新增时间
@@ -105,60 +98,52 @@ public class DailyTrainStationSaveReq {
         this.trainCode = trainCode;
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getCarriageIndex() {
+        return carriageIndex;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setCarriageIndex(Integer carriageIndex) {
+        this.carriageIndex = carriageIndex;
     }
 
-    public String getName() {
-        return name;
+    public String getRow() {
+        return row;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRow(String row) {
+        this.row = row;
     }
 
-    public String getNamePinyin() {
-        return namePinyin;
+    public String getCol() {
+        return col;
     }
 
-    public void setNamePinyin(String namePinyin) {
-        this.namePinyin = namePinyin;
+    public void setCol(String col) {
+        this.col = col;
     }
 
-    public Date getInTime() {
-        return inTime;
+    public String getSeatType() {
+        return seatType;
     }
 
-    public void setInTime(Date inTime) {
-        this.inTime = inTime;
+    public void setSeatType(String seatType) {
+        this.seatType = seatType;
     }
 
-    public Date getOutTime() {
-        return outTime;
+    public Integer getCarriageSeatIndex() {
+        return carriageSeatIndex;
     }
 
-    public void setOutTime(Date outTime) {
-        this.outTime = outTime;
+    public void setCarriageSeatIndex(Integer carriageSeatIndex) {
+        this.carriageSeatIndex = carriageSeatIndex;
     }
 
-    public Date getStopTime() {
-        return stopTime;
+    public String getSell() {
+        return sell;
     }
 
-    public void setStopTime(Date stopTime) {
-        this.stopTime = stopTime;
-    }
-
-    public BigDecimal getKm() {
-        return km;
-    }
-
-    public void setKm(BigDecimal km) {
-        this.km = km;
+    public void setSell(String sell) {
+        this.sell = sell;
     }
 
     public Date getCreateTime() {
@@ -186,13 +171,12 @@ public class DailyTrainStationSaveReq {
         sb.append(", id=").append(id);
         sb.append(", date=").append(date);
         sb.append(", trainCode=").append(trainCode);
-        sb.append(", index=").append(index);
-        sb.append(", name=").append(name);
-        sb.append(", namePinyin=").append(namePinyin);
-        sb.append(", inTime=").append(inTime);
-        sb.append(", outTime=").append(outTime);
-        sb.append(", stopTime=").append(stopTime);
-        sb.append(", km=").append(km);
+        sb.append(", carriageIndex=").append(carriageIndex);
+        sb.append(", row=").append(row);
+        sb.append(", col=").append(col);
+        sb.append(", seatType=").append(seatType);
+        sb.append(", carriageSeatIndex=").append(carriageSeatIndex);
+        sb.append(", sell=").append(sell);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append("]");
