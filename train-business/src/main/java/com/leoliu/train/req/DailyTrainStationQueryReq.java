@@ -8,18 +8,24 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class DailyTrainQueryReq extends PageReq {
+public class DailyTrainStationQueryReq extends PageReq {
 
+    /**
+     * 日期
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
-    private String code;
+    /**
+     * 车次编号
+     */
+    private String trainCode;
 
     @Override
     public String toString() {
-        return "DailyTrainQueryReq{" +
+        return "DailyTrainStationQueryReq{" +
                 "date=" + date +
-                ", code='" + code + '\'' +
+                ", trainCode='" + trainCode + '\'' +
                 "} " + super.toString();
     }
 }

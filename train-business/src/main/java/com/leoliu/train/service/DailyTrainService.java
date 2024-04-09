@@ -41,22 +41,29 @@ public class DailyTrainService {
 
     public PageResp<DailyTrainQueryResp> queryList(DailyTrainQueryReq req) {
         DailyTrainExample dailyTrainExample = new DailyTrainExample();
+        dailyTrainExample.setOrderByClause("date desc, code asc");
         DailyTrainExample.Criteria criteria = dailyTrainExample.createCriteria();
+        if (ObjectUtil.isNotNull(req.getDate())) {
+            criteria.andDateEqualTo(req.getDate());
+        }
+        if (ObjectUtil.isNotEmpty(req.getCode())) {
+            criteria.andCodeEqualTo(req.getCode());
+        }
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
-
         PageHelper.startPage(req.getPage(), req.getSize());
-        List<DailyTrain> list = dailyTrainMapper.selectByExample(dailyTrainExample);
+        List<DailyTrain> dailyTrainList = dailyTrainMapper.selectByExample(dailyTrainExample);
 
-        PageInfo<DailyTrain> dailyTrainPageInfo = new PageInfo<>(list);
-        log.info("总行数：{}", dailyTrainPageInfo.getTotal());
-        log.info("总页数：{}", dailyTrainPageInfo.getPages());
+        PageInfo<DailyTrain> pageInfo = new PageInfo<>(dailyTrainList);
+        log.info("总行数：{}", pageInfo.getTotal());
+        log.info("总页数：{}", pageInfo.getPages());
 
-        List<DailyTrainQueryResp> reqlist = BeanUtil.copyToList(list, DailyTrainQueryResp.class);
+        List<DailyTrainQueryResp> list = BeanUtil.copyToList(dailyTrainList, DailyTrainQueryResp.class);
+
         PageResp<DailyTrainQueryResp> pageResp = new PageResp<>();
-        pageResp.setTotal(dailyTrainPageInfo.getTotal());
-        pageResp.setList(reqlist);
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
         return pageResp;
     }
 

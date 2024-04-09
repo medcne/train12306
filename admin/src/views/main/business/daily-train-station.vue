@@ -66,7 +66,7 @@ import {notification} from "ant-design-vue";
 import axios from "axios";
 import {pinyin} from "pinyin-pro";
 import dayjs from "dayjs";
-import TrainSelectView from "@/components/train-select";
+import TrainSelectView from "@/components/train-select.vue";
 
 export default defineComponent({
   name: "daily-train-station-view",

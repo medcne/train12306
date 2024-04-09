@@ -79,13 +79,13 @@ public class BusinessServerGenerator {
         param.put("readOnly", readOnly);
         System.out.println("组装参数：" + param);
 
-        gen(Domain, param, "service", "service");
-        gen(Domain, param, "controller/admin", "adminController");
+//        gen(Domain, param, "service", "service");
+//        gen(Domain, param, "controller/admin", "adminController");
         gen(Domain, param, "req", "saveReq");
-        gen(Domain, param, "req", "queryReq");
-        gen(Domain, param, "resp", "queryResp");
+//        gen(Domain, param, "req", "queryReq");
+//        gen(Domain, param, "resp", "queryResp");
 
-        genVue(do_main, param);
+//        genVue(do_main, param);
     }
 
     private static void genVue(String do_main, Map<String, Object> param) throws IOException, TemplateException {
