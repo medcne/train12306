@@ -2,10 +2,7 @@ package com.leoliu.train.gen;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.leoliu.train.enums.SeatColEnum;
-import com.leoliu.train.enums.SeatTypeEnum;
-import com.leoliu.train.enums.TrainTypeEnum;
-import com.leoliu.train.enums.PassengerTypeEnum;
+import com.leoliu.train.enums.*;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -17,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnumGenerator {
-//    static String path = "admin/src/assets/js/enums.js";
-    static String path = "web/src/assets/js/enums.js";
+    static String path = "admin/src/assets/js/enums.js";
+//    static String path = "web/src/assets/js/enums.js";
 
     public static void main(String[] args) {
         StringBuffer bufferObject = new StringBuffer();
@@ -29,6 +26,7 @@ public class EnumGenerator {
             toJson(TrainTypeEnum.class, bufferObject, bufferArray);
             toJson(SeatTypeEnum.class, bufferObject, bufferArray);
             toJson(SeatColEnum.class, bufferObject, bufferArray);
+            toJson(ConfirmOrderStatusEnum.class, bufferObject, bufferArray);
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);
