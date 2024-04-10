@@ -55,5 +55,6 @@ public class LoginMemberFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() {
         return 0;
+
     }
 }

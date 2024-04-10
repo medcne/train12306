@@ -2,6 +2,7 @@ package com.leoliu.train.controller.admin;
 
 
 import com.leoliu.train.context.LoginMemberContext;
+import com.leoliu.train.req.ConfirmOrderDoReq;
 import com.leoliu.train.req.ConfirmOrderQueryReq;
 import com.leoliu.train.req.ConfirmOrderSaveReq;
 import com.leoliu.train.resp.CommonResp;
@@ -21,7 +22,7 @@ public class ConfirmOrderAdminController {
     private ConfirmOrderService confirmOrderService;
 
     @PostMapping("/save")
-    public CommonResp<Object> save(@Valid @RequestBody ConfirmOrderSaveReq req){
+    public CommonResp<Object> save(@Valid @RequestBody ConfirmOrderDoReq req) {
         confirmOrderService.save(req);
         return new CommonResp<>();
     }

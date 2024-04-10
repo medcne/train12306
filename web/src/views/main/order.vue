@@ -307,6 +307,22 @@ export default defineComponent({
       }
 
       console.log("最终购票：", tickets.value);
+
+      axios.post("/business/confirm-order/do", {
+        dailyTrainTicketId: dailyTrainTicket.id,
+        date: dailyTrainTicket.date,
+        trainCode: dailyTrainTicket.trainCode,
+        start: dailyTrainTicket.start,
+        end: dailyTrainTicket.end,
+        tickets: tickets.value
+      }).then((response) => {
+        let data = response.data;
+        if (data.success) {
+          notification.success({description: "下单成功！"});
+        } else {
+          notification.error({description: data.message});
+        }
+      });
     }
 
     onMounted(() => {
@@ -337,9 +353,11 @@ export default defineComponent({
   font-size: 18px;
   font-weight: bold;
 }
+
 .order-train .order-train-ticket {
   margin-top: 15px;
 }
+
 .order-train .order-train-ticket .order-train-ticket-main {
   color: red;
   font-size: 18px;
@@ -348,9 +366,11 @@ export default defineComponent({
 .order-tickets {
   margin: 10px 0;
 }
+
 .order-tickets .ant-col {
   padding: 5px 10px;
 }
+
 .order-tickets .order-tickets-header {
   background-color: cornflowerblue;
   border: solid 1px cornflowerblue;
@@ -358,6 +378,7 @@ export default defineComponent({
   font-size: 16px;
   padding: 5px 0;
 }
+
 .order-tickets .order-tickets-row {
   border: solid 1px cornflowerblue;
   border-top: none;
