@@ -26,7 +26,7 @@
       <template v-else-if="column.dataIndex === 'seatType'">
         <span v-for="item in SEAT_TYPE_ARRAY" :key="item.code">
           <span v-if="item.code === record.seatType">
-            {{item.desc}}
+            {{ item.desc }}
           </span>
         </span>
       </template>
@@ -39,33 +39,33 @@
         <train-select-view v-model="trainCarriage.trainCode"></train-select-view>
       </a-form-item>
       <a-form-item label="厢号">
-        <a-input v-model:value="trainCarriage.index" />
+        <a-input v-model:value="trainCarriage.index"/>
       </a-form-item>
       <a-form-item label="座位类型">
         <a-select v-model:value="trainCarriage.seatType">
           <a-select-option v-for="item in SEAT_TYPE_ARRAY" :key="item.code" :value="item.code">
-            {{item.desc}}
+            {{ item.desc }}
           </a-select-option>
         </a-select>
       </a-form-item>
-      <!--<a-form-item label="座位数">-->
-      <!--  <a-input v-model:value="trainCarriage.seatCount" />-->
-      <!--</a-form-item>-->
-      <a-form-item label="排数">
-        <a-input v-model:value="trainCarriage.rowCount" />
+      <a-form-item label="座位数">
+        <a-input v-model:value="trainCarriage.seatCount"/>
       </a-form-item>
-      <!--<a-form-item label="列数">-->
-      <!--  <a-input v-model:value="trainCarriage.colCount" />-->
-      <!--</a-form-item>-->
+      <a-form-item label="排数">
+        <a-input v-model:value="trainCarriage.rowCount"/>
+      </a-form-item>
+      <a-form-item label="列数">
+        <a-input v-model:value="trainCarriage.colCount"/>
+      </a-form-item>
     </a-form>
   </a-modal>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
+import {defineComponent, ref, onMounted} from 'vue';
 import {notification} from "ant-design-vue";
 import axios from "axios";
-import TrainSelectView from "@/components/train-select.vue";
+import TrainSelectView from "@/components/train-select";
 
 export default defineComponent({
   name: "train-carriage-view",
@@ -235,4 +235,3 @@ export default defineComponent({
   },
 });
 </script>
-

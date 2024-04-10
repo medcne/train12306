@@ -11,59 +11,54 @@ public class TrainSeatSaveReq {
     /**
      * id
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Long id;
 
     /**
      * 车次编号
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @NotBlank(message = "【车次编号】不能为空")
     private String trainCode;
 
     /**
      * 厢序
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @NotNull(message = "【厢序】不能为空")
     private Integer carriageIndex;
 
     /**
      * 排号|01, 02
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @NotBlank(message = "【排号】不能为空")
     private String row;
 
     /**
      * 列号|枚举[SeatColEnum]
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @NotBlank(message = "【列号】不能为空")
     private String col;
 
     /**
      * 座位类型|枚举[SeatTypeEnum]
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @NotBlank(message = "【座位类型】不能为空")
     private String seatType;
 
     /**
      * 同车厢座序
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @NotNull(message = "【同车厢座序】不能为空")
     private Integer carriageSeatIndex;
 
     /**
      * 新增时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     public Long getId() {

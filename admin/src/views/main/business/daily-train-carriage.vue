@@ -27,7 +27,7 @@
       <template v-else-if="column.dataIndex === 'seatType'">
         <span v-for="item in SEAT_TYPE_ARRAY" :key="item.code">
           <span v-if="item.code === record.seatType">
-            {{ item.desc }}
+            {{item.desc}}
           </span>
         </span>
       </template>
@@ -37,18 +37,18 @@
            ok-text="确认" cancel-text="取消">
     <a-form :model="dailyTrainCarriage" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
       <a-form-item label="日期">
-        <a-date-picker v-model:value="dailyTrainCarriage.date" valueFormat="YYYY-MM-DD" placeholder="请选择日期"/>
+        <a-date-picker v-model:value="dailyTrainCarriage.date" valueFormat="YYYY-MM-DD" placeholder="请选择日期" />
       </a-form-item>
       <a-form-item label="车次编号">
         <train-select-view v-model="dailyTrainCarriage.trainCode" width="200px"></train-select-view>
       </a-form-item>
       <a-form-item label="箱序">
-        <a-input v-model:value="dailyTrainCarriage.index"/>
+        <a-input v-model:value="dailyTrainCarriage.index" />
       </a-form-item>
       <a-form-item label="座位类型">
         <a-select v-model:value="dailyTrainCarriage.seatType">
           <a-select-option v-for="item in SEAT_TYPE_ARRAY" :key="item.code" :value="item.code">
-            {{ item.desc }}
+            {{item.desc}}
           </a-select-option>
         </a-select>
       </a-form-item>
@@ -56,7 +56,7 @@
       <!--  <a-input v-model:value="dailyTrainCarriage.seatCount" />-->
       <!--</a-form-item>-->
       <a-form-item label="排数">
-        <a-input v-model:value="dailyTrainCarriage.rowCount"/>
+        <a-input v-model:value="dailyTrainCarriage.rowCount" />
       </a-form-item>
       <!--<a-form-item label="列数">-->
       <!--  <a-input v-model:value="dailyTrainCarriage.colCount" />-->
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import {defineComponent, ref, onMounted} from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import {notification} from "ant-design-vue";
 import axios from "axios";
 import TrainSelectView from "@/components/train-select";

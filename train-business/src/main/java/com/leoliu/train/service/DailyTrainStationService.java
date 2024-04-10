@@ -20,6 +20,7 @@ import com.leoliu.train.util.SnowUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -74,8 +75,9 @@ public class DailyTrainStationService {
         pageResp.setList(list);
         return pageResp;
     }
-    
-       public void genDaily(Date date, String trainCode) {
+
+    @Transactional
+    public void genDaily(Date date, String trainCode) {
         log.info("生成日期【{}】车次【{}】的车站信息开始", DateUtil.formatDate(date), trainCode);
 
         // 删除某日某车次的车站信息

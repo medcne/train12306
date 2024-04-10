@@ -1,5 +1,6 @@
 package com.leoliu.train.enums;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -14,7 +15,10 @@ public enum SeatColEnum {
     EDZ_B("B", "B", "2"),
     EDZ_C("C", "C", "2"),
     EDZ_D("D", "D", "2"),
-    EDZ_F("F", "F", "2");
+    EDZ_F("F", "F", "2"),
+    RW_UP("UP", "UP", "3"),
+    RW_MIDDLE("MIDDLE", "MIDDLE", "3"),
+    RW_DOWN("MIDDLE", "MIDDLE", "3");
 
     private String code;
 
