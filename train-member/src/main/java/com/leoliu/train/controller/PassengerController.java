@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/passenger")
+@RequestMapping("/member/passenger")
 public class PassengerController {
     @Resource
     private PassengerService passengerService;

@@ -34,9 +34,6 @@
   <a-modal v-model:visible="visible" title="乘车人" @ok="handleOk"
            ok-text="确认" cancel-text="取消">
     <a-form :model="passenger" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
-      <a-form-item label="会员id">
-        <a-input v-model:value="passenger.memberId"/>
-      </a-form-item>
       <a-form-item label="姓名">
         <a-input v-model:value="passenger.name"/>
       </a-form-item>
@@ -119,7 +116,7 @@ export default defineComponent({
     };
 
     const onDelete = (record) => {
-      axios.delete("/passenger/delete/" + record.id).then((response) => {
+      axios.delete("/member/passenger/delete/" + record.id).then((response) => {
         const data = response.data;
         if (data.success) {
           notification.success({description: "删除成功！"});
@@ -134,7 +131,7 @@ export default defineComponent({
     };
 
     const handleOk = () => {
-      axios.post("/passenger/save", passenger.value).then((response) => {
+      axios.post("/member/passenger/save", passenger.value).then((response) => {
         let data = response.data;
         if (data.success) {
           notification.success({description: "保存成功！"});
@@ -157,7 +154,7 @@ export default defineComponent({
         };
       }
       loading.value = true;
-      axios.get("/passenger/query-list", {
+      axios.get("/member/passenger/query-list", {
         params: {
           page: param.page,
           size: param.size

@@ -1,43 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import {notification} from "ant-design-vue";
 import store from "@/store";
+import {notification} from "ant-design-vue";
 
-const routes = [
-  {
-    path: '/',
-    name: 'main',
-    component: () => import('../views/TrainMain.vue'),
-    meta: {
-      loginRequire:true,
-    },
-    children: [{
-      path: '/welcome',
-      component: () => import('../views/main/TrainWelcome.vue'),
-    },{
-      path: '/passenger',
-      component: ()=> import('../views/main/TrainPassenger.vue'),
-    }]
+const routes = [{
+  path: '/login',
+  component: () => import('../views/TrainLogin.vue')
+}, {
+  path: '/',
+  component: () => import('../views/TrainMain.vue'),
+  meta: {
+    loginRequire: true
   },
-  {
-    path: '',
-    redirect: '/welcome'
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: ()=> import('../views/TrainLogin.vue')
-  },
-]
+  children: [{
+    path: 'welcome',
+    component: () => import('../views/main/TrainWelcome.vue'),
+  }, {
+    path: 'passenger',
+    component: () => import('../views/main/passenger.vue'),
+  }, {
+    path: 'ticket',
+    component: () => import('../views/main/ticket.vue'),
+  }]
+}, {
+  path: '',
+  redirect: '/welcome'
+}];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
-/**
- *路由登录拦截
- */
-
+// 路由登录拦截
 router.beforeEach((to, from, next) => {
   // 要不要对meta.loginRequire属性做监控拦截
   if (to.matched.some(function (item) {
@@ -48,7 +42,7 @@ router.beforeEach((to, from, next) => {
     console.log("页面登录校验开始：", _member);
     if (!_member.token) {
       console.log("用户未登录或登录超时！");
-      notification.error({description: "未登录或登录超时"});
+      notification.error({ description: "未登录或登录超时" });
       next('/login');
     } else {
       next();

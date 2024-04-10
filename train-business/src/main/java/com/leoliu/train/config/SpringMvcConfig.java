@@ -1,4 +1,4 @@
-package com.leoliu.train.controller.config;
+package com.leoliu.train.config;
 
 import com.leoliu.train.interceptor.LogInterceptor;
 import com.leoliu.train.interceptor.MemberInterceptor;

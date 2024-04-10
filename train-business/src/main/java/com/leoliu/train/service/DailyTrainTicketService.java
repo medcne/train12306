@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.EnumUtil;
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -56,22 +57,35 @@ public class DailyTrainTicketService {
 
     public PageResp<DailyTrainTicketQueryResp> queryList(DailyTrainTicketQueryReq req) {
         DailyTrainTicketExample dailyTrainTicketExample = new DailyTrainTicketExample();
+        dailyTrainTicketExample.setOrderByClause("id desc");
         DailyTrainTicketExample.Criteria criteria = dailyTrainTicketExample.createCriteria();
+        if (ObjUtil.isNotNull(req.getDate())) {
+            criteria.andDateEqualTo(req.getDate());
+        }
+        if (ObjUtil.isNotEmpty(req.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
+        if (ObjUtil.isNotEmpty(req.getStart())) {
+            criteria.andStartEqualTo(req.getStart());
+        }
+        if (ObjUtil.isNotEmpty(req.getEnd())) {
+            criteria.andEndEqualTo(req.getEnd());
+        }
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
-
         PageHelper.startPage(req.getPage(), req.getSize());
-        List<DailyTrainTicket> list = dailyTrainTicketMapper.selectByExample(dailyTrainTicketExample);
+        List<DailyTrainTicket> dailyTrainTicketList = dailyTrainTicketMapper.selectByExample(dailyTrainTicketExample);
 
-        PageInfo<DailyTrainTicket> dailyTrainTicketPageInfo = new PageInfo<>(list);
-        log.info("总行数：{}", dailyTrainTicketPageInfo.getTotal());
-        log.info("总页数：{}", dailyTrainTicketPageInfo.getPages());
+        PageInfo<DailyTrainTicket> pageInfo = new PageInfo<>(dailyTrainTicketList);
+        log.info("总行数：{}", pageInfo.getTotal());
+        log.info("总页数：{}", pageInfo.getPages());
 
-        List<DailyTrainTicketQueryResp> reqlist = BeanUtil.copyToList(list, DailyTrainTicketQueryResp.class);
+        List<DailyTrainTicketQueryResp> list = BeanUtil.copyToList(dailyTrainTicketList, DailyTrainTicketQueryResp.class);
+
         PageResp<DailyTrainTicketQueryResp> pageResp = new PageResp<>();
-        pageResp.setTotal(dailyTrainTicketPageInfo.getTotal());
-        pageResp.setList(reqlist);
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
         return pageResp;
     }
 

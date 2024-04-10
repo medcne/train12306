@@ -14,7 +14,13 @@ public enum SeatColEnum {
     EDZ_B("B", "B", "2"),
     EDZ_C("C", "C", "2"),
     EDZ_D("D", "D", "2"),
-    EDZ_F("F", "F", "2");
+    EDZ_F("F", "F", "2"),
+    RW_UP("S", "S", "3"),
+    RW_MIDDLE("Z", "Z", "3"),
+    RW_DOWN("X", "X", "3"),
+    YW_UP("S", "S", "4"),
+    YW_MIDDLE("Z", "Z", "4"),
+    YW_DOWN("X", "X", "4");
 
     private String code;
 
