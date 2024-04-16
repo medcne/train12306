@@ -17,24 +17,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/member/admin/ticket")
 public class TicketAdminController {
+
     @Resource
     private TicketService ticketService;
 
-    @PostMapping("/save")
-    public CommonResp<Object> save(@Valid @RequestBody TicketSaveReq req){
-        ticketService.save(req);
-        return new CommonResp<>();
-    }
-
     @GetMapping("/query-list")
-    public CommonResp<PageResp<TicketQueryResp>> queryList(@Valid TicketQueryReq req){
-        PageResp<TicketQueryResp> pageResp = ticketService.queryList(req);
-        return new CommonResp<>(pageResp);
+    public CommonResp<PageResp<TicketQueryResp>> queryList(@Valid TicketQueryReq req) {
+        PageResp<TicketQueryResp> list = ticketService.queryList(req);
+        return new CommonResp<>(list);
     }
 
-    @DeleteMapping("delete/{id}")
-    public CommonResp<Object> delete(@PathVariable Long id){
-        ticketService.delete(id);
-        return new CommonResp<>();
-    }
 }

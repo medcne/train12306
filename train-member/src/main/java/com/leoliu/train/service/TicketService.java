@@ -2,14 +2,13 @@ package com.leoliu.train.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.leoliu.train.domain.Ticket;
 import com.leoliu.train.domain.TicketExample;
 import com.leoliu.train.mapper.TicketMapper;
+import com.leoliu.train.req.MemberTicketReq;
 import com.leoliu.train.req.TicketQueryReq;
-import com.leoliu.train.req.TicketSaveReq;
 import com.leoliu.train.resp.PageResp;
 import com.leoliu.train.resp.TicketQueryResp;
 import com.leoliu.train.util.SnowUtil;
@@ -22,44 +21,46 @@ import java.util.List;
 @Slf4j
 @Service
 public class TicketService {
+
+
     @Resource
     private TicketMapper ticketMapper;
 
-    public void save(TicketSaveReq req) {
+    /**
+     * 会员购买车票后新增保存
+     *
+     * @param req
+     */
+    public void save(MemberTicketReq req) throws Exception {
         DateTime now = DateTime.now();
         Ticket ticket = BeanUtil.copyProperties(req, Ticket.class);
-        if (ObjectUtil.isNull(ticket.getId())) {
-            ticket.setId(SnowUtil.getSnowflakeNextId());
-            ticket.setCreateTime(now);
-            ticket.setUpdateTime(now);
-            ticketMapper.insert(ticket);
-        } else {
-            ticket.setUpdateTime(now);
-            ticketMapper.updateByPrimaryKey(ticket);
-        }
+        ticket.setId(SnowUtil.getSnowflakeNextId());
+        ticket.setCreateTime(now);
+        ticket.setUpdateTime(now);
+        ticketMapper.insert(ticket);
     }
 
     public PageResp<TicketQueryResp> queryList(TicketQueryReq req) {
         TicketExample ticketExample = new TicketExample();
+        ticketExample.setOrderByClause("id desc");
         TicketExample.Criteria criteria = ticketExample.createCriteria();
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
-
         PageHelper.startPage(req.getPage(), req.getSize());
-        List<Ticket> list = ticketMapper.selectByExample(ticketExample);
+        List<Ticket> ticketList = ticketMapper.selectByExample(ticketExample);
 
-        PageInfo<Ticket> ticketPageInfo = new PageInfo<>(list);
-        log.info("总行数：{}", ticketPageInfo.getTotal());
-        log.info("总页数：{}", ticketPageInfo.getPages());
+        PageInfo<Ticket> pageInfo = new PageInfo<>(ticketList);
+        log.info("总行数：{}", pageInfo.getTotal());
+        log.info("总页数：{}", pageInfo.getPages());
 
-        List<TicketQueryResp> reqlist = BeanUtil.copyToList(list, TicketQueryResp.class);
+        List<TicketQueryResp> list = BeanUtil.copyToList(ticketList, TicketQueryResp.class);
+
         PageResp<TicketQueryResp> pageResp = new PageResp<>();
-        pageResp.setTotal(ticketPageInfo.getTotal());
-        pageResp.setList(reqlist);
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
         return pageResp;
     }
-
 
     public void delete(Long id) {
         ticketMapper.deleteByPrimaryKey(id);
