@@ -34,27 +34,35 @@ const routes = [{
             component: () => import('../views/main/batch/job.vue')
         }]
     }, {
-        path: 'business/',
+        path: 'member/',
         children: [{
-            path: 'daily-train',
-            component: () => import('../views/main/business/daily-train.vue'),
-        }, {
-            path: 'daily-train-station',
-            component: () => import('../views/main/business/daily-train-station.vue'),
-        }, {
-            path: 'daily-train-carriage',
-            component: () => import('../views/main/business/daily-train-carriage.vue'),
-        },{
-            path: 'daily-train-seat',
-            component: () => import('../views/main/business/daily-train-seat.vue'),
-        },{
-            path: 'daily-train-ticket',
-            component: () => import('../views/main/business/daily-train-ticket.vue'),
-        },{
-            path: 'confirm-order',
-            component: () => import('../views/main/business/confirm-order.vue'),
+            path: 'ticket',
+            component: () => import('../views/main/member/ticket.vue')
         }]
-    },]
+    },
+
+        {
+            path: 'business/',
+            children: [{
+                path: 'daily-train',
+                component: () => import('../views/main/business/daily-train.vue'),
+            }, {
+                path: 'daily-train-station',
+                component: () => import('../views/main/business/daily-train-station.vue'),
+            }, {
+                path: 'daily-train-carriage',
+                component: () => import('../views/main/business/daily-train-carriage.vue'),
+            }, {
+                path: 'daily-train-seat',
+                component: () => import('../views/main/business/daily-train-seat.vue'),
+            }, {
+                path: 'daily-train-ticket',
+                component: () => import('../views/main/business/daily-train-ticket.vue'),
+            }, {
+                path: 'confirm-order',
+                component: () => import('../views/main/business/confirm-order.vue'),
+            }]
+        },]
 }, {
     path: '',
     redirect: '/welcome'

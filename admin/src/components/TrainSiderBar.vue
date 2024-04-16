@@ -2,7 +2,7 @@
   <a-layout-sider width="200" style="background: #fff">
     <a-menu
         v-model:selectedKeys="selectedKeys"
-        :openKeys="['batch', 'base', 'business']"
+        :openKeys="['batch', 'base', 'business', 'member']"
         mode="inline"
         :style="{ height: '100%', borderRight: 0 }"
     >
@@ -16,6 +16,19 @@
           <user-outlined /> &nbsp; 关于
         </router-link>
       </a-menu-item>
+      <a-sub-menu key="member">
+        <template #title>
+          <span>
+            <UnorderedListOutlined />
+            会员管理
+          </span>
+        </template>
+        <a-menu-item key="/member/ticket">
+          <router-link to="/member/ticket">
+            <MenuUnfoldOutlined /> 会员车票
+          </router-link>
+        </a-menu-item>
+      </a-sub-menu>
       <a-sub-menu key="business">
         <template #title>
           <span>
@@ -23,6 +36,16 @@
             业务管理
           </span>
         </template>
+        <a-menu-item key="/business/confirm-order">
+          <router-link to="/business/confirm-order">
+            <user-outlined /> &nbsp; 订单信息
+          </router-link>
+        </a-menu-item>
+        <a-menu-item key="/business/daily-train-ticket">
+          <router-link to="/business/daily-train-ticket">
+            <user-outlined /> &nbsp; 余票信息
+          </router-link>
+        </a-menu-item>
         <a-menu-item key="/business/daily-train">
           <router-link to="/business/daily-train">
             <user-outlined /> &nbsp; 每日车次
@@ -41,16 +64,6 @@
         <a-menu-item key="/business/daily-train-seat">
           <router-link to="/business/daily-train-seat">
             <user-outlined /> &nbsp; 每日座位
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="/business/confirm-order">
-          <router-link to="/business/confirm-order">
-            <user-outlined /> &nbsp; 订单信息
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="/business/daily-train-ticket">
-          <router-link to="/business/daily-train-ticket">
-            <user-outlined /> &nbsp; 每日余票
           </router-link>
         </a-menu-item>
       </a-sub-menu>
