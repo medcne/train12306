@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/business/admin/confirm-order")
 public class ConfirmOrderAdminController {
+
     @Resource
     private ConfirmOrderService confirmOrderService;
 
@@ -28,14 +29,15 @@ public class ConfirmOrderAdminController {
     }
 
     @GetMapping("/query-list")
-    public CommonResp<PageResp<ConfirmOrderQueryResp>> queryList(@Valid ConfirmOrderQueryReq req){
-        PageResp<ConfirmOrderQueryResp> pageResp = confirmOrderService.queryList(req);
-        return new CommonResp<>(pageResp);
+    public CommonResp<PageResp<ConfirmOrderQueryResp>> queryList(@Valid ConfirmOrderQueryReq req) {
+        PageResp<ConfirmOrderQueryResp> list = confirmOrderService.queryList(req);
+        return new CommonResp<>(list);
     }
 
-    @DeleteMapping("delete/{id}")
-    public CommonResp<Object> delete(@PathVariable Long id){
+    @DeleteMapping("/delete/{id}")
+    public CommonResp<Object> delete(@PathVariable Long id) {
         confirmOrderService.delete(id);
         return new CommonResp<>();
     }
+
 }
