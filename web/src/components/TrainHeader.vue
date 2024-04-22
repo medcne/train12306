@@ -2,7 +2,7 @@
   <a-layout-header class="header">
     <div class="logo">
       <router-link to="/welcome" style="color: white; font-size: 18px">
-        甲蛙12306
+        宇阳12306
       </router-link>
     </div>
     <div style="float: right; color: white;">
@@ -30,6 +30,11 @@
       <a-menu-item key="/ticket">
         <router-link to="/ticket">
           <user-outlined /> &nbsp; 余票查询
+        </router-link>
+      </a-menu-item>
+      <a-menu-item key="/my-ticket">
+        <router-link to="/my-ticket">
+          <idcard-outlined /> &nbsp; 我的车票
         </router-link>
       </a-menu-item>
     </a-menu>

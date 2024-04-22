@@ -20,6 +20,7 @@ public class LoginMemberFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
         //2.排除不需要被访问的路径
         if (path.contains("/admin")
+                || path.contains("/business/redis")
                 || path.contains("/hello")
                 || path.contains("/member/login")
                 || path.contains("/member/send-code")

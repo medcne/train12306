@@ -1,4 +1,4 @@
-package com.leoliu.train.feign;
+package com.leoliu.train.controller.feign;
 
 import com.leoliu.train.req.MemberTicketReq;
 import com.leoliu.train.resp.CommonResp;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/feign/ticket")
+@RequestMapping("/member/feign/ticket")
 public class FeignTicketController {
 
     @Autowired
