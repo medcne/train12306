@@ -38,7 +38,28 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     local-cache-scope: statement
 
-
-
-
-
+seata:
+#  config:
+#    nacos:
+#      dataId: seataServer.properties
+#      group: SEATA_GROUP
+#      namespace: train
+#      password: nacos
+#      server-addr: 127.0.0.1:8848
+#      username: nacos
+#    type: nacos
+#  registry:
+#    nacos:
+#      application: seata-server
+#      group: SEATA_GROUP
+#      namespace: train
+#      password: nacos
+#      server-addr: 127.0.0.1:8848
+#      username: nacos
+#    type: nacos
+  tx-service-group: train-group
+  service:
+    vgroup-mapping:
+      train-group: default
+    grouplist:
+      default: 127.0.0.1:8091
