@@ -2,7 +2,7 @@
   <p>
     <a-space>
       <a-button type="primary" @click="handleQuery()">刷新</a-button>
-      
+
     </a-space>
   </p>
   <a-table :dataSource="tickets"
@@ -13,9 +13,9 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
       </template>
-      <template v-else-if="column.dataIndex === 'col'">
+      <template v-else-if="column.dataIndex === 'seatCol'">
         <span v-for="item in SEAT_COL_ARRAY" :key="item.code">
-          <span v-if="item.code === record.col">
+          <span v-if="item.code === record.seatCol && item.type === record.seatType">
             {{item.desc}}
           </span>
         </span>
@@ -47,14 +47,14 @@ export default defineComponent({
       memberId: undefined,
       passengerId: undefined,
       passengerName: undefined,
-      date: undefined,
+      trainDate: undefined,
       trainCode: undefined,
       carriageIndex: undefined,
-      row: undefined,
-      col: undefined,
-      start: undefined,
+      seatRow: undefined,
+      seatCol: undefined,
+      startStation: undefined,
       startTime: undefined,
-      end: undefined,
+      endStation: undefined,
       endTime: undefined,
       seatType: undefined,
       createTime: undefined,
@@ -69,71 +69,71 @@ export default defineComponent({
     });
     let loading = ref(false);
     const columns = [
-    {
-      title: '会员id',
-      dataIndex: 'memberId',
-      key: 'memberId',
-    },
-    {
-      title: '乘客id',
-      dataIndex: 'passengerId',
-      key: 'passengerId',
-    },
-    {
-      title: '乘客姓名',
-      dataIndex: 'passengerName',
-      key: 'passengerName',
-    },
-    {
-      title: '日期',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: '车次编号',
-      dataIndex: 'trainCode',
-      key: 'trainCode',
-    },
-    {
-      title: '箱序',
-      dataIndex: 'carriageIndex',
-      key: 'carriageIndex',
-    },
-    {
-      title: '排号',
-      dataIndex: 'row',
-      key: 'row',
-    },
-    {
-      title: '列号',
-      dataIndex: 'col',
-      key: 'col',
-    },
-    {
-      title: '出发站',
-      dataIndex: 'start',
-      key: 'start',
-    },
-    {
-      title: '出发时间',
-      dataIndex: 'startTime',
-      key: 'startTime',
-    },
-    {
-      title: '到达站',
-      dataIndex: 'end',
-      key: 'end',
-    },
-    {
-      title: '到站时间',
-      dataIndex: 'endTime',
-      key: 'endTime',
-    },
-    {
-      title: '座位类型',
-      dataIndex: 'seatType',
-      key: 'seatType',
-    },
+      {
+        title: '会员id',
+        dataIndex: 'memberId',
+        key: 'memberId',
+      },
+      {
+        title: '乘客id',
+        dataIndex: 'passengerId',
+        key: 'passengerId',
+      },
+      {
+        title: '乘客姓名',
+        dataIndex: 'passengerName',
+        key: 'passengerName',
+      },
+      {
+        title: '日期',
+        dataIndex: 'trainDate',
+        key: 'trainDate',
+      },
+      {
+        title: '车次编号',
+        dataIndex: 'trainCode',
+        key: 'trainCode',
+      },
+      {
+        title: '箱序',
+        dataIndex: 'carriageIndex',
+        key: 'carriageIndex',
+      },
+      {
+        title: '排号',
+        dataIndex: 'seatRow',
+        key: 'seatRow',
+      },
+      {
+        title: '列号',
+        dataIndex: 'seatCol',
+        key: 'seatCol',
+      },
+      {
+        title: '出发站',
+        dataIndex: 'startStation',
+        key: 'startStation',
+      },
+      {
+        title: '出发时间',
+        dataIndex: 'startTime',
+        key: 'startTime',
+      },
+      {
+        title: '到达站',
+        dataIndex: 'endStation',
+        key: 'endStation',
+      },
+      {
+        title: '到站时间',
+        dataIndex: 'endTime',
+        key: 'endTime',
+      },
+      {
+        title: '座位类型',
+        dataIndex: 'seatType',
+        key: 'seatType',
+      },
     ];
 
 
