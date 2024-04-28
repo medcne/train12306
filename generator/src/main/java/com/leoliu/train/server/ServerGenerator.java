@@ -16,13 +16,13 @@ import java.util.*;
 
 public class ServerGenerator {
     static boolean readOnly = false;
-    static String vuePath = "web/src/views/main/";
+    static String vuePath = "admin/src/views/main/";
     static String serverPath = "[module]/src/main/java/com/leoliu/train/";
     static String pomPath = "generator\\pom.xml";
 
-    static {
-        new File(serverPath).mkdirs();
-    }
+//    static {
+//        new File(serverPath).mkdirs();
+//    }
 
     public static void main(String[] args) throws Exception {
         // 获取mybatis-generator
@@ -31,7 +31,7 @@ public class ServerGenerator {
         String module = generatorPath.replace("src/main/resources/generator-config-", "").replace(".xml", "");
         System.out.println("module: " + module);
         serverPath = "train-" + serverPath.replace("[module]", module);
-        // new File(serverPath).mkdirs();
+         new File(serverPath).mkdirs();
         System.out.println("serverPath: " + serverPath);
 
         // 读取table节点
@@ -80,7 +80,7 @@ public class ServerGenerator {
         System.out.println("组装参数：" + param);
 
         gen(Domain, param, "service", "service");
-        gen(Domain, param, "controller", "controller");
+        gen(Domain, param, "controller/admin", "adminController");
         gen(Domain, param, "req", "saveReq");
         gen(Domain, param, "req", "queryReq");
         gen(Domain, param, "resp", "queryResp");
