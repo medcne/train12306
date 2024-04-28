@@ -14,6 +14,7 @@ spring:
         server-addr: localhost:8848
         namespace: train
 
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://rm-cn-ot93ohbfy0002nbo.rwlb.rds.aliyuncs.com:3306/train_member?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
@@ -54,3 +55,6 @@ seata:
 #      username: nacos
 #      password: nacos
 #      context-path: ""
+
+
+

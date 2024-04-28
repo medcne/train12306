@@ -123,6 +123,7 @@ public class AfterConfirmOrderService {
             memberTicketReq.setEndStation(dailyTrainTicket.getEnd());
             memberTicketReq.setEndTime(dailyTrainTicket.getEndTime());
             memberTicketReq.setSeatType(dailyTrainSeat.getSeatType());
+            Thread.sleep(500);
             CommonResp<Object> commonResp = memberFeign.save(memberTicketReq);
             log.info("调用member接口，返回：{}", commonResp);
 
