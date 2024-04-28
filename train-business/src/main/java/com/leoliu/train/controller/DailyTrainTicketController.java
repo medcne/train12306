@@ -1,6 +1,7 @@
 package com.leoliu.train.controller;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.leoliu.train.req.DailyTrainTicketQueryReq;
 import com.leoliu.train.req.DailyTrainTicketSaveReq;
 import com.leoliu.train.resp.CommonResp;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class DailyTrainTicketController {
     @Resource
     private DailyTrainTicketService dailyTrainTicketService;
+
     @GetMapping("/query-list")
     public CommonResp<PageResp<DailyTrainTicketQueryResp>> queryList(@Valid DailyTrainTicketQueryReq req){
         PageResp<DailyTrainTicketQueryResp> pageResp = dailyTrainTicketService.queryList(req);

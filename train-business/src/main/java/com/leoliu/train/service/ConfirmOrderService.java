@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.leoliu.train.context.LoginMemberContext;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
@@ -104,6 +106,7 @@ public class ConfirmOrderService {
         confirmOrderMapper.deleteByPrimaryKey(id);
     }
 
+    @SentinelResource(value = "doConfirm", blockHandler = "doConfirmBlock")
     public synchronized void doConfirm(ConfirmOrderDoReq req) {
         String lockKey = req.getDate() + "-" + req.getTrainCode();
 
@@ -415,5 +418,10 @@ public class ConfirmOrderService {
                 }
             }
         }
+    }
+
+    public void doConfirmBlock(ConfirmOrderDoReq req, BlockException e){
+        log.info("请求被限流：{}","doConfirm");
+        throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_LOCK_FAIL);
     }
 }

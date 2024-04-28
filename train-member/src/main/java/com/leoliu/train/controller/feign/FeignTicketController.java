@@ -22,5 +22,4 @@ public class FeignTicketController {
         ticketService.save(req);
         return new CommonResp<>();
     }
-
 }

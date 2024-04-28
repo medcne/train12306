@@ -1,0 +1,19 @@
+feign:
+  sentinel:
+    enabled: true
+spring:
+  cloud:
+    openfeign:
+      lazy-attributes-resolution: true
+    sentinel:
+      datasource:
+        degrade:
+          nacos:
+            dataId: sentinel-batch-degrade
+            groupId: DEFAULT_GROUP
+            namespace: train
+            ruleType: degrade
+            serverAddr: 127.0.0.1:8848
+      transport:
+        dashboard: localhost:8080
+        port: 8719
