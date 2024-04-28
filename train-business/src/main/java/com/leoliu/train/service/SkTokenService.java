@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import com.leoliu.train.domain.SkToken;
 import com.leoliu.train.domain.SkTokenExample;
 import com.leoliu.train.mapper.SkTokenMapper;
+import com.leoliu.train.mapper.cust.SkTokenMapperCust;
 import com.leoliu.train.req.SkTokenQueryReq;
 import com.leoliu.train.req.SkTokenSaveReq;
 import com.leoliu.train.resp.PageResp;
@@ -31,6 +32,8 @@ public class SkTokenService {
 
     @Resource
     private DailyTrainStationService dailyTrainStationService;
+    @Resource
+    private SkTokenMapperCust skTokenMapperCust;
 
     public void save(SkTokenSaveReq req) {
         DateTime now = DateTime.now();
@@ -98,5 +101,19 @@ public class SkTokenService {
         skToken.setCount(count);
 
         skTokenMapper.insert(skToken);
+    }
+
+    /**
+     * 获取令牌
+     */
+    public boolean validSkToken(Date date, String trainCode, Long memberId) {
+        log.info("会员【{}】获取日期【{}】车次【{}】的令牌开始", memberId, DateUtil.formatDate(date), trainCode);
+        // 令牌约等于库存，令牌没有了，就不再卖票，不需要再进入购票主流程去判断库存，判断令牌肯定比判断库存效率高
+        int updateCount = skTokenMapperCust.decrease(date, trainCode);
+        if (updateCount > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
