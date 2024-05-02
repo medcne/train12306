@@ -76,6 +76,13 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
+        <!-- 图形验证码 -->
+        <!-- 图形验证码 升级到JDK17后，排除掉javax.servlet-api包 -->
+        <!-- 图形验证码 -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

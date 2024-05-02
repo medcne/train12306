@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CommonResp<T> {
     /**
      * 业务上的成功或者失败
@@ -19,9 +18,15 @@ public class CommonResp<T> {
     /**
      * 返回的内容
      */
-    private  T content;
+    private T content;
 
     public CommonResp(T content) {
+        this.content = content;
+    }
+
+    public CommonResp(boolean success, String message, T content) {
+        this.success = success;
+        this.message = message;
         this.content = content;
     }
 }
