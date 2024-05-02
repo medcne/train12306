@@ -1,6 +1,7 @@
 package com.leoliu.train.service;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
@@ -15,6 +16,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.leoliu.train.domain.*;
 import com.leoliu.train.enums.ConfirmOrderStatusEnum;
+
+import com.leoliu.train.enums.RedisKeyPreEnum;
 import com.leoliu.train.enums.SeatColEnum;
 import com.leoliu.train.enums.SeatTypeEnum;
 import com.leoliu.train.exception.BusinessException;
@@ -122,7 +125,8 @@ public class ConfirmOrderService {
         }
 
         // 购票
-        String lockKey = req.getDate() + "-" + req.getTrainCode();
+//        String lockKey = req.getDate() + "-" + req.getTrainCode();
+        String lockKey = RedisKeyPreEnum.CONFIRM_ORDER + "-" + DateUtil.formatDate(req.getDate()) + "-" + req.getTrainCode();
 
 //        Boolean setIfAbsent = stringRedisTemplate.opsForValue().setIfAbsent(lockKey, lockKey, 3, TimeUnit.SECONDS);
 //        if(Boolean.TRUE.equals(setIfAbsent)){
