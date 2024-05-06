@@ -9,7 +9,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.leoliu.train.domain.SkToken;
 import com.leoliu.train.domain.SkTokenExample;
-
 import com.leoliu.train.enums.RedisKeyPreEnum;
 import com.leoliu.train.exception.BusinessException;
 import com.leoliu.train.exception.BusinessExceptionEnum;
@@ -22,9 +21,9 @@ import com.leoliu.train.resp.SkTokenQueryResp;
 import com.leoliu.train.util.SnowUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class SkTokenService {
+    @Value("${spring.profiles.active}")
+    private String env;
 
     @Resource
     private SkTokenMapper skTokenMapper;
@@ -128,15 +129,17 @@ public class SkTokenService {
     public boolean validSkToken(Date date, String trainCode, Long memberId) {
         log.info("会员【{}】获取日期【{}】车次【{}】的令牌开始", memberId, DateUtil.formatDate(date), trainCode);
 
-        // 先获取令牌锁，再校验令牌余量，防止机器人抢票，lockKey就是令牌，用来表示【谁能做什么】的一个凭证
-        String lockKey = RedisKeyPreEnum.SK_TOKEN + "-" + DateUtil.formatDate(date) + "-" + trainCode + "-" + memberId;
-        Boolean setIfAbsent = redisTemplate.opsForValue().setIfAbsent(lockKey, lockKey, 5, TimeUnit.SECONDS);
-        if (Boolean.TRUE.equals(setIfAbsent)) {
-            log.info("恭喜，抢到令牌锁了！lockKey：{}", lockKey);
-        } else {
-            log.info("很遗憾，没抢到令牌锁！lockKey：{}", lockKey);
-            return false;
-        }
+        if (!env.equals("dev")) {
+            // 先获取令牌锁，再校验令牌余量，防止机器人抢票，lockKey就是令牌，用来表示【谁能做什么】的一个凭证
+            String lockKey = RedisKeyPreEnum.SK_TOKEN + "-" + DateUtil.formatDate(date) + "-" + trainCode + "-" + memberId;
+            Boolean setIfAbsent = redisTemplate.opsForValue().setIfAbsent(lockKey, lockKey, 5, TimeUnit.SECONDS);
+            if (Boolean.TRUE.equals(setIfAbsent)) {
+                log.info("恭喜，抢到令牌锁了！lockKey：{}", lockKey);
+            } else {
+                log.info("很遗憾，没抢到令牌锁！lockKey：{}", lockKey);
+                return false;
+            }
+         }
 
         String skTokenCountKey = RedisKeyPreEnum.SK_TOKEN_COUNT + "-" + DateUtil.formatDate(date) + "-" + trainCode;
         Object skTokenCount = redisTemplate.opsForValue().get(skTokenCountKey);

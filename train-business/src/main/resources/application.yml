@@ -60,6 +60,8 @@ spring:
       key-prefix: train_cache_
       time-to-live: 60s
       use-key-prefix: true
+  profiles:
+    active: dev
 
 
 mybatis:
@@ -94,5 +96,12 @@ seata:
       train-group: default
     grouplist:
       default: 127.0.0.1:8091
+
+# rocketmq
+rocketmq:
+  name-server: http://localhost:9876
+  producer:
+    group: default
+
 
 

@@ -4,6 +4,7 @@ server:
 logging:
   config: classpath:logback-spring.xml
 
+
 spring:
   application:
     name: train-batch
@@ -13,6 +14,7 @@ spring:
       discovery:
         server-addr: localhost:8848
         namespace: train
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
