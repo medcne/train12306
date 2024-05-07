@@ -14,8 +14,10 @@ import com.leoliu.train.domain.TrainStation;
 import com.leoliu.train.mapper.DailyTrainSeatMapper;
 import com.leoliu.train.req.DailyTrainSeatQueryReq;
 import com.leoliu.train.req.DailyTrainSeatSaveReq;
+import com.leoliu.train.req.SeatSellReq;
 import com.leoliu.train.resp.PageResp;
 import com.leoliu.train.resp.DailyTrainSeatQueryResp;
+import com.leoliu.train.resp.SeatSellResp;
 import com.leoliu.train.util.SnowUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -141,5 +143,20 @@ public class DailyTrainSeatService {
 
     public void delete(Long id) {
         dailyTrainSeatMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 查询某日某车次的所有座位
+     */
+    public List<SeatSellResp> querySeatSell(SeatSellReq req) {
+        Date date = req.getDate();
+        String trainCode = req.getTrainCode();
+        log.info("查询日期【{}】车次【{}】的座位销售信息", DateUtil.formatDate(date), trainCode);
+        DailyTrainSeatExample dailyTrainSeatExample = new DailyTrainSeatExample();
+        dailyTrainSeatExample.setOrderByClause("`carriage_index` asc, carriage_seat_index asc");
+        dailyTrainSeatExample.createCriteria()
+                .andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode);
+        return BeanUtil.copyToList(dailyTrainSeatMapper.selectByExample(dailyTrainSeatExample), SeatSellResp.class);
     }
 }
