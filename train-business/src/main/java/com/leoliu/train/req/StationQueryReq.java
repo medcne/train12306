@@ -1,9 +1,10 @@
 package com.leoliu.train.req;
 
-import lombok.Data;
-
-@Data
 public class StationQueryReq extends PageReq{
-
+    @Override
+    public String toString() {
+        return "StationQueryReq{" +
+                "} " + super.toString();
+    }
 }
 

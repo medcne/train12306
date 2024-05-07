@@ -28,13 +28,13 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-seata:
-  tx-service-group: train-group
-  service:
-    vgroup-mapping:
-      train-group: default
-    grouplist:
-      default: 127.0.0.1:8091
+#seata:
+#  tx-service-group: train-group
+#  service:
+#    vgroup-mapping:
+#      train-group: default
+#    grouplist:
+#      default: 127.0.0.1:8091
 #  config:
 #    nacos:
 #      dataId: seataServer.properties

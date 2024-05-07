@@ -2,8 +2,12 @@ package com.leoliu.train.req;
 
 import lombok.Data;
 
-@Data
-public class TrainQueryReq extends PageReq{
+public class TrainQueryReq extends PageReq {
 
+    @Override
+    public String toString() {
+        return "TrainQueryReq{" +
+                "} " + super.toString();
+    }
 }
 
