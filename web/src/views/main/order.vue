@@ -94,6 +94,11 @@
         </div>
         <div style="color: #999999">提示：您可以选择{{tickets.length}}个座位</div>
       </div>
+      <br>
+      <div style="color: red">
+        体验排队购票，加入多人一起排队购票：
+        <a-input-number v-model:value="lineNumber" :min="0" :max="20" />
+      </div>
       <!--<br/>-->
       <!--最终购票：{{tickets}}-->
       <!--最终选座：{{chooseSeatObj}}-->
@@ -144,6 +149,8 @@
         <loading-outlined /> 您前面还有{{confirmOrderLineCount}}位用户在购票，排队中，请稍候
       </div>
     </div>
+    <br/>
+    <a-button type="danger" @click="onCancelOrder">取消购票</a-button>
   </a-modal>
 </template>
 
@@ -202,6 +209,7 @@ export default defineComponent({
     const lineModalVisible = ref(false);
     const confirmOrderId = ref();
     const confirmOrderLineCount = ref(-1);
+    const lineNumber = ref(5);
 
     // 勾选或去掉某个乘客时，在购票列表中加上或去掉一张表
     watch(() => passengerChecks.value, (newVal, oldVal)=>{
@@ -371,6 +379,7 @@ export default defineComponent({
         tickets: tickets.value,
         imageCodeToken: imageCodeToken.value,
         imageCode: imageCode.value,
+        lineNumber: lineNumber.value
       }).then((response) => {
         let data = response.data;
         if (data.success) {
@@ -478,6 +487,28 @@ export default defineComponent({
       }
     };
 
+    /**
+     * 取消排队
+     */
+    const onCancelOrder = () => {
+      axios.get("/business/confirm-order/cancel/" + confirmOrderId.value).then((response) => {
+        let data = response.data;
+        if (data.success) {
+          let result = data.content;
+          if (result === 1) {
+            notification.success({description: "取消成功！"});
+            // 取消成功时，不用再轮询排队结果
+            clearInterval(queryLineCountInterval);
+            lineModalVisible.value = false;
+          } else {
+            notification.error({description: "取消失败！"});
+          }
+        } else {
+          notification.error({description: data.message});
+        }
+      });
+    };
+
     onMounted(() => {
       handleQueryPassenger();
     });
@@ -510,7 +541,9 @@ export default defineComponent({
       validFirstImageCode,
       lineModalVisible,
       confirmOrderId,
-      confirmOrderLineCount
+      confirmOrderLineCount,
+      onCancelOrder,
+      lineNumber
     };
   },
 });

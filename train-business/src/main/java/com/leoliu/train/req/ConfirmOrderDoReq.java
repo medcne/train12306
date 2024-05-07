@@ -14,23 +14,15 @@ import java.util.List;
 @Setter
 @Getter
 public class ConfirmOrderDoReq {
-    /**
-     * 日志跟踪号
-     */
-    private String logId;
 
     /**
      * 会员id
      */
-    @Setter
-    @Getter
     private Long memberId;
 
     /**
      * 日期
      */
-    @Setter
-    @Getter
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @NotNull(message = "【日期】不能为空")
     private Date date;
@@ -38,7 +30,6 @@ public class ConfirmOrderDoReq {
     /**
      * 车次编号
      */
-    @Getter
     @NotBlank(message = "【车次编号】不能为空")
     private String trainCode;
 
@@ -78,6 +69,103 @@ public class ConfirmOrderDoReq {
     @NotBlank(message = "【图片验证码】参数非法")
     private String imageCodeToken;
 
+    /**
+     * 日志跟踪号
+     */
+    private String logId;
+
+    /**
+     * 加入排队人数，用于体验排队功能
+     */
+    private int lineNumber;
+
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getTrainCode() {
+        return trainCode;
+    }
+
+    public void setTrainCode(String trainCode) {
+        this.trainCode = trainCode;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public Long getDailyTrainTicketId() {
+        return dailyTrainTicketId;
+    }
+
+    public void setDailyTrainTicketId(Long dailyTrainTicketId) {
+        this.dailyTrainTicketId = dailyTrainTicketId;
+    }
+
+    public List<ConfirmOrderTicketReq> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<ConfirmOrderTicketReq> tickets) {
+        this.tickets = tickets;
+    }
+
+    public String getImageCode() {
+        return imageCode;
+    }
+
+    public void setImageCode(String imageCode) {
+        this.imageCode = imageCode;
+    }
+
+    public String getImageCodeToken() {
+        return imageCodeToken;
+    }
+
+    public void setImageCodeToken(String imageCodeToken) {
+        this.imageCodeToken = imageCodeToken;
+    }
+
+    public String getLogId() {
+        return logId;
+    }
+
+    public void setLogId(String logId) {
+        this.logId = logId;
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
 
     @Override
     public String toString() {
@@ -91,8 +179,8 @@ public class ConfirmOrderDoReq {
                 ", tickets=" + tickets +
                 ", imageCode='" + imageCode + '\'' +
                 ", imageCodeToken='" + imageCodeToken + '\'' +
+                ", logId='" + logId + '\'' +
+                ", lineNumber=" + lineNumber +
                 '}';
     }
-
-
 }
