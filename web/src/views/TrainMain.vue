@@ -10,7 +10,8 @@
       </a-layout-content>
     </a-layout>
       <a-layout-footer style="text-align: center">
-        12306 train system 2024-RC1 Created by MR.Liu
+        12306 train system 2024-RC1 Created by MR.Liu<br>
+
       </a-layout-footer>
   </a-layout>
 </template>
